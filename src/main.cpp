@@ -18,36 +18,7 @@ using Aspen::GameState::GameStateManager;
 using Aspen::Graphics::Graphics;
 using Aspen::Object::Object;
 
-class MyState : public Aspen::GameState::GameState
-{
-/* public:
-    MyState(Aspen::Object::Object *parent = nullptr, std::string name = "My State")
-      : Aspen::GameState::GameState(parent, name)
-    {
-        // Create a new child
-        AddChild(
-            // The child is a new rectangle
-            new Aspen::Graphics::Rectangle(
-                // x = 0, y = 0, width = 32, height = 32
-                SDL_Rect({0, 0, 32, 32}),
-                // It's black and filled
-                Aspen::Graphics::Colors::BLUE, true,
-                // this is its parent and its name is "Rectangle" (this can be omitted)
-                this, "BlueBase"
-                )
-            );
-        AddChild(
-            new Aspen::Graphics::Rectangle(
-                // x = 0, y = 0, width = 32, height = 32
-                SDL_Rect({0, 0, 32, 32}),
-                // It's black and filled
-                Aspen::Graphics::Colors::RED, true,
-                // this is its parent and its name is "Rectangle" (this can be omitted)
-                this, "RedBase"
-                )
-            );
-    }
-*/};
+
 class PlayerUnit : public Aspen::Object::Object
 {
   Aspen::Graphics::Animation *hoverAnim;
@@ -86,7 +57,7 @@ class PlayerUnit : public Aspen::Object::Object
   //bool hyperturret = false;
   //bool mech = false;
   //bool mechanized = false;
-  //public:
+  public:
   PlayerUnit(Object *parent = nullptr, std::string name = "PlayerUnit")
   {
   hoverAnim = new Aspen::Graphics::Animation(
@@ -151,9 +122,9 @@ class PlayerUnit : public Aspen::Object::Object
   //  AddChild(legWalkVert);
 
   AddChild(hoverAnim);
-  CreateChild<Aspen::Transform::Transform>();
-    GetTransform()->SetPosition(100,100);
-    CreateChild<Aspen::Physics::AABBCollider>()->SetSize(32,32);;
+    CreateChild<Aspen::Transform::Transform>();
+      GetTransform()->SetPosition(100,100);
+    CreateChild<Aspen::Physics::AABBCollider>()->SetSize(32,32);
     CreateChild<Aspen::Physics::Rigidbody>();
 
 
@@ -175,13 +146,11 @@ class PlayerUnit : public Aspen::Object::Object
   void buildMech(){
     Aspen::Graphics::Animation *Mech;
     Mech = new Aspen::Graphics::Animation(new Aspen::Graphics::UniformSpritesheet("./resources/Firing Cycle.png", 32, 32, 8, nullptr, "FiringCycle"), 0.0f, this, "Firing Cycle");
-  }*/
+  */}
 
-  }
+  
      void OnUpdate()
     {
-    }
-    void OnMouseClick(){
       while(!Aspen::Input::KeyHeld(SDLK_q)){
       double xv = GetRigidbody()->GetVelocityX();
       double yv = GetRigidbody()->GetVelocityY();
@@ -200,8 +169,12 @@ class PlayerUnit : public Aspen::Object::Object
       }
       GetRigidbody()->SetCartesianVelocity(xv, yv);
     };
-
+    }
+    void OnMouseClick(){
+      
+    };
 };
+
 /* class EnemyUnit : public Aspen::Object::Object
 {
    Aspen::Graphics::Animation *animation;
@@ -219,6 +192,37 @@ class PlayerUnit : public Aspen::Object::Object
     }
 };
 */
+class MyState : public Aspen::GameState::GameState
+{
+public:
+    MyState(Aspen::Object::Object *parent = nullptr, std::string name = "My State")
+      : Aspen::GameState::GameState(parent, name)
+    {
+        // Create a new child
+        AddChild(
+            // The child is a new rectangle
+            new Aspen::Graphics::Rectangle(
+                // x = 0, y = 0, width = 32, height = 32
+                SDL_Rect({0, 0, 32, 32}),
+                // It's black and filled
+                Aspen::Graphics::Colors::BLUE, true,
+                // this is its parent and its name is "Rectangle" (this can be omitted)
+                this, "BlueBase"
+                )
+            );
+        AddChild(
+            new Aspen::Graphics::Rectangle(
+                // x = 0, y = 0, width = 32, height = 32
+                SDL_Rect({0, 0, 32, 32}),
+                // It's black and filled
+                Aspen::Graphics::Colors::RED, true,
+                // this is its parent and its name is "Rectangle" (this can be omitted)
+                this, "RedBase"
+                )
+            );
+        CreateChild<PlayerUnit>();
+    }
+};
 int main(int argc, char **argv)
 {
     //int resource = 155;
@@ -228,6 +232,7 @@ int main(int argc, char **argv)
     Aspen::Engine::Engine engine(Aspen::Engine::START_FLAGS::ALL);
     engine.FindChildOfType<Aspen::Physics::Physics>()->SetGravityStrength(0);
     engine.FindChildOfType<Aspen::GameState::GameStateManager>()->LoadState<MyState>(true);
+    
 
     while (engine)
         engine();
