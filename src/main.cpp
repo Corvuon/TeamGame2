@@ -1,5 +1,22 @@
-#include "Engine.cpp"
-#include "GameState.cpp"
+#include "Engine.hpp"
+#include "Graphics.hpp"
+#include "UI.hpp"
+#include "Transform.hpp"
+#include "Controller.hpp"
+#include "Physics.hpp"
+#include "Time.hpp"
+#include "Log.hpp"
+#include "Audio.hpp"
+#include "Input.hpp"
+#include "Debug.hpp"
+#include "GameState.hpp"
+#include <iostream>
+
+using Aspen::Engine::Engine;
+using Aspen::GameState::GameState;
+using Aspen::GameState::GameStateManager;
+using Aspen::Graphics::Graphics;
+using Aspen::Object::Object;
 
 class MyState : public Aspen::GameState::GameState
 {
@@ -19,13 +36,7 @@ public:
                 this, "BlueBase"
                 )
             );
-        CreateChild<Aspen::Transform::Transform>();
-        //GetTransform()->SetPosition(100,100);
-    }
-    MyState(Aspen::Object::Object *parent = nullptr, std::string name = "Yer State")
-      : Aspen::GameState::GameState(parent, name)
-    {
-    AddChild(
+        AddChild(
             new Aspen::Graphics::Rectangle(
                 // x = 0, y = 0, width = 32, height = 32
                 SDL_Rect({0, 0, 32, 32}),
@@ -163,26 +174,25 @@ class PlayerUnit : public Aspen::Object::Object
   }*/
 
   }
-//
-   //  void OnUpdate()
-   //{
-   //   double xv = moveable->GetRigidbody()->GetVelocityX();
-   //   double yv = moveable->GetRigidbody()->GetVelocityY();
-//
-   //   if (Aspen::Input::KeyHeld(SDLK_a)){
-   //     xv = -5;
-   //   }if (Aspen::Input::KeyHeld(SDLK_d)){
-   //     xv = 5;
-   //   }if (Aspen::Input::KeyHeld(SDLK_w)){
-   //     yv = -5;
-   //  }if (Aspen::Input::KeyHeld(SDLK_s)){
-   //    yv = 5;
-   //   }
-   //  moveable->GetRigidbody()->SetCartesianVelocity(xv, yv);
-   // }
+     void OnUpdate()
+    {
+     double xv = GetRigidbody()->GetVelocityX();
+     double yv = GetRigidbody()->GetVelocityY();
+
+     if (Aspen::Input::KeyHeld(SDLK_a)){
+        xv = -5;
+      }if (Aspen::Input::KeyHeld(SDLK_d)){
+        xv = 5;
+      }if (Aspen::Input::KeyHeld(SDLK_w)){
+        yv = -5;
+     }if (Aspen::Input::KeyHeld(SDLK_s)){
+       yv = 5;
+    }
+     GetRigidbody()->SetCartesianVelocity(xv, yv);
+    }
 
 };
-class EnemyUnit : public Aspen::Object::Object
+/* class EnemyUnit : public Aspen::Object::Object
 {
    Aspen::Graphics::Animation *animation;
   public:
@@ -196,15 +206,15 @@ class EnemyUnit : public Aspen::Object::Object
       GetTransform()->SetPosition(100,100);
       CreateChild<Aspen::Physics::AABBCollider>()->SetSize(55,120);
       CreateChild<Aspen::Physics::Rigidbody>();
-
+    }
 };
-
+*/
 int main(int argc, char **argv)
 {
-    //int resource = 155;
-    //void OnUpdate(){
-      //  main->resource++;
-    //};
+    int resource = 155;
+    void OnUpdate(){
+        main->resource++;
+    };
     Aspen::Engine::Engine engine(Aspen::Engine::START_FLAGS::ALL);
 
     engine.FindChildOfType<Aspen::GameState::GameStateManager>()->LoadState<MyState>(true);
