@@ -151,24 +151,22 @@ class PlayerUnit : public Aspen::Object::Object
   
      void OnUpdate()
     {
-      while(!Aspen::Input::KeyHeld(SDLK_q)){
       double xv = GetRigidbody()->GetVelocityX();
       double yv = GetRigidbody()->GetVelocityY();
       if (Aspen::Input::KeyHeld(SDLK_a)){
-        xv = -5;
+        xv = -1;
         Aspen::Log::Info("A key is held");
       }if (Aspen::Input::KeyHeld(SDLK_d)){
-        xv = 5;
+        xv = 1;
         Aspen::Log::Info("D key is held");
       }if (Aspen::Input::KeyHeld(SDLK_w)){ 
-        yv = -5;
+        yv = -1;
         Aspen::Log::Info("W key is held");
      }if (Aspen::Input::KeyHeld(SDLK_s)){
-       yv = 5;
+       yv = 1;
        Aspen::Log::Info("S key is held");
       }
       GetRigidbody()->SetCartesianVelocity(xv, yv);
-    };
     }
     void OnMouseClick(){
       
@@ -231,6 +229,7 @@ int main(int argc, char **argv)
     //};
     Aspen::Engine::Engine engine(Aspen::Engine::START_FLAGS::ALL);
     engine.FindChildOfType<Aspen::Physics::Physics>()->SetGravityStrength(0);
+    engine.FindChildOfType<Aspen::Physics::Physics>()->SetDrag(0.5f);
     engine.FindChildOfType<Aspen::GameState::GameStateManager>()->LoadState<MyState>(true);
     
 
