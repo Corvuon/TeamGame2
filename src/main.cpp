@@ -219,7 +219,6 @@ class PlayerUnit : public Aspen::Object::Object
 */
 int main(int argc, char **argv)
 {
-  engine.FindChildOfType<Aspen::Physics::Physics>()->SetGravityStrength(0);
     //int resource = 155;
     //void OnUpdate(){
     //    main.resource++;
