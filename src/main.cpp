@@ -153,7 +153,7 @@ class PlayerUnit : public Aspen::Object::Object
   AddChild(hoverAnim);
   CreateChild<Aspen::Transform::Transform>();
     GetTransform()->SetPosition(100,100);
-    CreateChild<Aspen::Physics::AABBCollider>();
+    CreateChild<Aspen::Physics::AABBCollider>()->SetSize(32,32);;
     CreateChild<Aspen::Physics::Rigidbody>();
 
 
