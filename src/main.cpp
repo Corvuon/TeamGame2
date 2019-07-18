@@ -20,7 +20,7 @@ using Aspen::Object::Object;
 
 class MyState : public Aspen::GameState::GameState
 {
-public:
+/* public:
     MyState(Aspen::Object::Object *parent = nullptr, std::string name = "My State")
       : Aspen::GameState::GameState(parent, name)
     {
@@ -47,7 +47,7 @@ public:
                 )
             );
     }
-};
+*/};
 class PlayerUnit : public Aspen::Object::Object
 {
   Aspen::Graphics::Animation *hoverAnim;
@@ -151,6 +151,10 @@ class PlayerUnit : public Aspen::Object::Object
   //  AddChild(legWalkVert);
 
   AddChild(hoverAnim);
+  CreateChild<Aspen::Transform::Transform>();
+      GetTransform()->SetPosition(100,100);
+      CreateChild<Aspen::Physics::AABBCollider>()->SetSize(55,120);
+      CreateChild<Aspen::Physics::Rigidbody>();
 
   /*void buildHover(){
     hover = true;
@@ -210,6 +214,7 @@ class PlayerUnit : public Aspen::Object::Object
 */
 int main(int argc, char **argv)
 {
+  engine.FindChildOfType<Aspen::Physics::Physics>()->SetGravityStrength(0);
     //int resource = 155;
     //void OnUpdate(){
     //    main.resource++;
