@@ -14,9 +14,19 @@ public:
                 // x = 0, y = 0, width = 32, height = 32
                 SDL_Rect({0, 0, 32, 32}),
                 // It's black and filled
-                Aspen::Graphics::Colors::BLACK, true,
+                Aspen::Graphics::Colors::BLUE, true,
                 // this is its parent and its name is "Rectangle" (this can be omitted)
-                this, "Rectangle"
+                this, "BlueBase"
+                )
+            );
+        AddChild(
+            new Aspen::Graphics::Rectangle(
+                // x = 0, y = 0, width = 32, height = 32
+                SDL_Rect({0, 0, 32, 32}),
+                // It's black and filled
+                Aspen::Graphics::Colors::RED, true,
+                // this is its parent and its name is "Rectangle" (this can be omitted)
+                this, "RedBase"
                 )
             );
     }
@@ -63,10 +73,10 @@ class PlayerUnit : public Aspen::Object::Object
   PlayerUnit(Object *parent = nullptr, std::string name = "PlayerUnit")
   {
   hoverAnim = new Aspen::Graphics::Animation(
-    new Aspen::Graphics::UniformSpritesheet("./resources/Sprites/Firing Cycle.png", 32, 32, 8, nullptr, "FiringCycle"), 1.0f / 12.0f, this, "Firing Cycle");
+    new Aspen::Graphics::UniformSpritesheet("./resources/Sprites/Hover firecycle centered.png", 32, 32, 8, nullptr, "Hover firecycle centered"), 1.0f / 12.0f, this, "Hover firecycle centered");
     AddChild(hoverAnim);
   hoverDest = new Aspen::Graphics::Animation(
-    new Aspen::Graphics::UniformSpritesheet("./resources/Sprites/Firing Cycle.png", 32, 32, 8, nullptr, "FiringCycle"), 1.0f / 12.0f, this, "Firing Cycle");
+    new Aspen::Graphics::UniformSpritesheet("./resources/Sprites/Hover destruction.png", 32, 32, 8, nullptr, "Hover Destruction"), 1.0f / 12.0f, this, "Hover Destruction");
     AddChild(hoverDest);
   skidAnim = new Aspen::Graphics::Animation(
     new Aspen::Graphics::UniformSpritesheet("./resources/Sprites/Firing Cycle.png", 32, 32, 8, nullptr, "FiringCycle"), 1.0f / 12.0f, this, "Firing Cycle");
@@ -173,6 +183,10 @@ class EnemyUnit : Aspen::Graphics::Animation
 
 int main(int argc, char **argv)
 {
+    int resource = 155;
+    void OnUpdate(){
+        main->resource++;
+    };
     Aspen::Engine::Engine engine(Aspen::Engine::START_FLAGS::ALL);
 
     engine.FindChildOfType<Aspen::GameState::GameStateManager>()->LoadState<MyState>(true);
