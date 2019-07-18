@@ -183,10 +183,10 @@ class EnemyUnit : Aspen::Graphics::Animation
 
 int main(int argc, char **argv)
 {
-    int resource = 155;
-    void OnUpdate(){
-        main->resource++;
-    };
+    //int resource = 155;
+    //void OnUpdate(){
+      //  main->resource++;
+    //};
     Aspen::Engine::Engine engine(Aspen::Engine::START_FLAGS::ALL);
 
     engine.FindChildOfType<Aspen::GameState::GameStateManager>()->LoadState<MyState>(true);
