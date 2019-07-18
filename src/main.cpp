@@ -19,7 +19,13 @@ public:
                 this, "BlueBase"
                 )
             );
-        AddChild(
+        CreateChild<Aspen::Transform::Transform>();
+        //GetTransform()->SetPosition(100,100);
+    }
+    MyState(Aspen::Object::Object *parent = nullptr, std::string name = "Yer State")
+      : Aspen::GameState::GameState(parent, name)
+    {
+    AddChild(
             new Aspen::Graphics::Rectangle(
                 // x = 0, y = 0, width = 32, height = 32
                 SDL_Rect({0, 0, 32, 32}),
