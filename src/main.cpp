@@ -46,7 +46,6 @@ public:
                 this, "RedBase"
                 )
             );
-        Hover1 = new PlayerUnit
     }
 };
 class PlayerUnit : public Aspen::Object::Object
@@ -151,8 +150,7 @@ class PlayerUnit : public Aspen::Object::Object
   //  new Aspen::Graphics::UniformSpritesheet("./resources/Sprites/Firing Cycle.png", 32, 32, 8, nullptr, "FiringCycle"), 1.0f / 12.0f, this, "Firing Cycle");
   //  AddChild(legWalkVert);
 
-  hoverAnim->Activate();
-  
+  AddChild(hoverAnim);
 
   /*void buildHover(){
     hover = true;
