@@ -152,9 +152,10 @@ class PlayerUnit : public Aspen::Object::Object
 
   AddChild(hoverAnim);
   CreateChild<Aspen::Transform::Transform>();
-      GetTransform()->SetPosition(100,100);
-      CreateChild<Aspen::Physics::AABBCollider>()->SetSize(55,120);
-      CreateChild<Aspen::Physics::Rigidbody>();
+    GetTransform()->SetPosition(100,100);
+    CreateChild<Aspen::Physics::AABBCollider>();
+    CreateChild<Aspen::Physics::Rigidbody>();
+
 
   /*void buildHover(){
     hover = true;
@@ -184,12 +185,16 @@ class PlayerUnit : public Aspen::Object::Object
 
      if (Aspen::Input::KeyHeld(SDLK_a)){
         xv = -5;
+        Aspen::Log::Info("A key is held");
       }if (Aspen::Input::KeyHeld(SDLK_d)){
         xv = 5;
+        Aspen::Log::Info("D key is held");
       }if (Aspen::Input::KeyHeld(SDLK_w)){ 
         yv = -5;
+        Aspen::Log::Info("W key is held");
      }if (Aspen::Input::KeyHeld(SDLK_s)){
        yv = 5;
+       Aspen::Log::Info("S key is held");
     }
      GetRigidbody()->SetCartesianVelocity(xv, yv);
     }
@@ -220,7 +225,7 @@ int main(int argc, char **argv)
     //    main.resource++;
     //};
     Aspen::Engine::Engine engine(Aspen::Engine::START_FLAGS::ALL);
-
+    engine.FindChildOfType<Aspen::Physics::Physics>()->SetGravityStrength(0);
     engine.FindChildOfType<Aspen::GameState::GameStateManager>()->LoadState<MyState>(true);
 
     while (engine)
