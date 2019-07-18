@@ -182,8 +182,20 @@ class PlayerUnit : public Aspen::Object::Object
    // }
 
 };
-class EnemyUnit : Aspen::Graphics::Animation
+class EnemyUnit : public Aspen::Object::Object
 {
+   Aspen::Graphics::Animation *animation;
+  public:
+    EnemyUnit(Object *parent = nullptr, std::string name = "Eunit") : Object (parent, name)
+    {
+      animation = new Aspen::Graphics::Animation(
+        new Aspen::Graphics::UniformSpritesheet("./resources/Enemy Skid destruction (1).png",32,32,1,nullptr,"jim"),
+        1.0f/12.0f, parent, name);
+      AddChild(animation);
+      CreateChild<Aspen::Transform::Transform>();
+      GetTransform()->SetPosition(100,100);
+      CreateChild<Aspen::Physics::AABBCollider>()->SetSize(55,120);
+      CreateChild<Aspen::Physics::Rigidbody>();
 
 };
 
