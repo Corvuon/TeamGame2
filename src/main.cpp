@@ -213,7 +213,7 @@ int main(int argc, char **argv)
 {
     int resource = 155;
     void OnUpdate(){
-        main->resource++;
+        main.resource++;
     };
     Aspen::Engine::Engine engine(Aspen::Engine::START_FLAGS::ALL);
 
