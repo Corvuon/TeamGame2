@@ -180,10 +180,12 @@ class PlayerUnit : public Aspen::Object::Object
   }
      void OnUpdate()
     {
-     double xv = GetRigidbody()->GetVelocityX();
-     double yv = GetRigidbody()->GetVelocityY();
-
-     if (Aspen::Input::KeyHeld(SDLK_a)){
+    }
+    void OnMouseClick(){
+      while(!Aspen::Input::KeyHeld(SDLK_q)){
+      double xv = GetRigidbody()->GetVelocityX();
+      double yv = GetRigidbody()->GetVelocityY();
+      if (Aspen::Input::KeyHeld(SDLK_a)){
         xv = -5;
         Aspen::Log::Info("A key is held");
       }if (Aspen::Input::KeyHeld(SDLK_d)){
@@ -195,9 +197,9 @@ class PlayerUnit : public Aspen::Object::Object
      }if (Aspen::Input::KeyHeld(SDLK_s)){
        yv = 5;
        Aspen::Log::Info("S key is held");
-    }
-     GetRigidbody()->SetCartesianVelocity(xv, yv);
-    }
+      }
+      GetRigidbody()->SetCartesianVelocity(xv, yv);
+    };
 
 };
 /* class EnemyUnit : public Aspen::Object::Object
